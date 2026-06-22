@@ -1,0 +1,100 @@
+// backend/prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  customer
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+}
+
+enum DeliveryStatus {
+  processing
+  shipped
+  delivered
+}
+
+model User {
+  id           String     @id @default(uuid())
+  name         String
+  email        String     @unique
+  passwordHash String     @map("password_hash")
+  role         Role       @default(customer)
+  createdAt    DateTime   @default(now()) @map("created_at")
+
+  cartItems    CartItem[]
+  orders       Order[]
+
+  @@map("users")
+}
+
+model Product {
+  id            String      @id @default(uuid())
+  name          String
+  description   String      @default("")
+  price         Decimal     @db.Decimal(10, 2)
+  stockQuantity Int         @default(0) @map("stock_quantity")
+  imageUrl      String?     @map("image_url")
+  category      String      @default("uncategorized")
+  createdAt     DateTime    @default(now()) @map("created_at")
+
+  cartItems     CartItem[]
+  orderItems    OrderItem[]
+
+  @@index([category])
+  @@map("products")
+}
+
+model CartItem {
+  id        String  @id @default(uuid())
+  userId    String  @map("user_id")
+  productId String  @map("product_id")
+  quantity  Int     @default(1)
+
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  // one row per (user, product) -> increment quantity instead of duplicating
+  @@unique([userId, productId])
+  @@map("cart_items")
+}
+
+model Order {
+  id              String         @id @default(uuid())
+  userId          String         @map("user_id")
+  stripeSessionId String?        @unique @map("stripe_session_id") // UNIQUE = webhook idempotency
+  totalAmount     Decimal        @db.Decimal(10, 2) @map("total_amount") // SERVER CALCULATED ONLY
+  paymentStatus   PaymentStatus  @default(pending) @map("payment_status")
+  deliveryStatus  DeliveryStatus @default(processing) @map("delivery_status")
+  createdAt       DateTime       @default(now()) @map("created_at")
+
+  user            User           @relation(fields: [userId], references: [id])
+  items           OrderItem[]
+
+  @@index([userId])
+  @@map("orders")
+}
+
+model OrderItem {
+  id              String  @id @default(uuid())
+  orderId         String  @map("order_id")
+  productId       String  @map("product_id")
+  quantity        Int
+  priceAtPurchase Decimal @db.Decimal(10, 2) @map("price_at_purchase") // LOCKED at order time
+
+  order           Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product         Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}

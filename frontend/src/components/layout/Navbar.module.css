@@ -1,0 +1,84 @@
+/* Edenrobe-style navbar: white bg, black text, wide tracking */
+.nav {
+  position: sticky; top: 0;
+  height: var(--header-height);
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--color-border);
+  z-index: var(--z-header);
+}
+.inner {
+  max-width: var(--max-width); height: 100%; margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex; align-items: center; gap: var(--space-5);
+}
+.brand {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+/* small decorative box replacing the teal logo */
+.logo {
+  width: 18px; height: 18px;
+  background: #111111;
+}
+.brandAccent { font-style: italic; }
+
+.links { display: flex; gap: var(--space-5); margin-right: auto; }
+.link {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+  position: relative;
+  padding-bottom: 2px;
+}
+.link::after {
+  content: "";
+  position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--color-text);
+  transition: width var(--transition);
+}
+.link:hover { color: var(--color-text); }
+.link:hover::after { width: 100%; }
+
+.actions { display: flex; align-items: center; gap: var(--space-3); }
+.hello {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+}
+.ghostBtn {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  transition: background var(--transition), border-color var(--transition);
+}
+.ghostBtn:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+.cartBtn {
+  position: relative; display: grid; place-items: center;
+  width: 36px; height: 36px;
+  color: var(--color-text);
+  transition: opacity var(--transition);
+}
+.cartBtn:hover { opacity: 0.6; }
+.badge {
+  position: absolute; top: 1px; right: 1px;
+  min-width: 16px; height: 16px; padding: 0 3px;
+  display: grid; place-items: center;
+  background: #111111; color: #fff;
+  font-size: 10px; font-weight: var(--weight-bold);
+  border-radius: var(--radius-full);
+}

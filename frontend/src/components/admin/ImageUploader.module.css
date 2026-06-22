@@ -1,0 +1,107 @@
+/* ── Idle: drag-drop zone ── */
+.zone {
+  border: 1px dashed var(--color-border);
+  padding: var(--space-5);
+  display: grid; place-items: center;
+  cursor: pointer; min-height: 140px;
+  transition: border-color var(--transition), background var(--transition);
+  background: var(--color-surface-2);
+}
+.zone:hover { border-color: var(--color-primary); background: var(--color-surface); }
+.placeholder {
+  display: flex; flex-direction: column;
+  align-items: center; gap: var(--space-2);
+  color: var(--color-text-subtle); text-align: center;
+}
+.placeholder span {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+.placeholder small { font-size: 10px; color: var(--color-text-subtle); }
+
+/* ── Crop UI ── */
+.cropWrap { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.aspectRow {
+  display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;
+}
+.aspectLabel {
+  font-size: 10px; font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider); text-transform: uppercase;
+  color: var(--color-text-subtle); margin-right: var(--space-1);
+}
+.aspectBtn {
+  padding: 4px 10px;
+  font-size: 10px; font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  transition: all var(--transition);
+}
+.aspectBtn:hover { border-color: var(--color-primary); color: var(--color-text); }
+.aspectActive { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+/* ReactCrop wrapper */
+.reactCrop { max-height: 420px; overflow: hidden; }
+.cropImg { max-height: 420px; width: 100%; object-fit: contain; display: block; }
+
+.cropHint {
+  font-size: 10px; color: var(--color-text-subtle);
+  letter-spacing: var(--tracking-wide); text-align: center;
+  margin-top: calc(var(--space-2) * -1);
+}
+
+.cropActions { display: flex; gap: var(--space-3); justify-content: flex-end; }
+
+.uploadBtn {
+  padding: 9px var(--space-5);
+  background: #111111; color: #fff;
+  font-size: var(--text-xs); font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider); text-transform: uppercase;
+  border: 1px solid #111111;
+  transition: background var(--transition);
+}
+.uploadBtn:hover:not(:disabled) { background: #000; }
+.uploadBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.cancelBtn {
+  padding: 9px var(--space-5);
+  background: transparent; color: var(--color-text-muted);
+  font-size: var(--text-xs); font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wider); text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  transition: all var(--transition);
+}
+.cancelBtn:hover { border-color: var(--color-danger); color: var(--color-danger); }
+
+/* ── Uploading ── */
+.uploadingWrap { padding: var(--space-5); background: var(--color-surface-2); }
+.uploadingLabel {
+  font-size: var(--text-xs); color: var(--color-text-subtle);
+  letter-spacing: var(--tracking-wider); text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.bar { height: 2px; background: var(--color-border); }
+.fill { height: 100%; background: var(--color-primary); transition: width var(--transition); }
+
+/* ── Done: preview ── */
+.doneWrap { display: flex; flex-direction: column; gap: var(--space-3); }
+.preview { width: 100%; max-height: 220px; object-fit: contain; background: var(--color-surface-2); }
+.doneActions { display: flex; gap: var(--space-3); }
+.changeBtn {
+  padding: 7px var(--space-4);
+  background: transparent; color: var(--color-text);
+  font-size: 10px; font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider); text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  transition: all var(--transition);
+}
+.changeBtn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+/* ── Shared ── */
+.err {
+  color: var(--color-danger); font-size: var(--text-xs);
+  margin-top: var(--space-2); letter-spacing: var(--tracking-wide);
+}

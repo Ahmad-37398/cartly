@@ -1,0 +1,42 @@
+services:
+
+  gateway:
+    build: ./gateway
+    container_name: cartly-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:16
+    container_name: cartly-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 22767
+      POSTGRES_DB: ecommerce
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: cartly-backend
+    ports:
+      - "5000:4000"
+    environment:
+      DATABASE_URL: postgresql://postgres:22767@postgres:5432/ecommerce?schema=public
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./frontend
+    container_name: cartly-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

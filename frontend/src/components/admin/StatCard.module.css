@@ -1,0 +1,18 @@
+.card {
+  display: flex; align-items: center; gap: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: var(--space-5);
+  transition: box-shadow var(--transition);
+}
+.card:hover { box-shadow: var(--shadow-md); }
+.icon {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  font-size: 20px; flex-shrink: 0;
+  background: var(--color-surface-2);
+}
+/* all accents become monochrome */
+.primary, .blue, .amber, .green { background: var(--color-surface-2); }
+.value { font-size: var(--text-2xl); font-weight: var(--weight-bold); line-height: 1.1; letter-spacing: var(--tracking-tight); }
+.label { font-size: var(--text-xs); color: var(--color-text-subtle); margin-top: 2px; letter-spacing: var(--tracking-wider); text-transform: uppercase; }

@@ -1,0 +1,43 @@
+.back {
+  display: inline-block; margin-bottom: var(--space-5);
+  font-size: var(--text-xs); color: var(--color-text-subtle);
+  letter-spacing: var(--tracking-wider); text-transform: uppercase;
+}
+.back:hover { color: var(--color-text); }
+
+.layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+@media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
+
+.media { aspect-ratio: 3/4; background: var(--color-surface-2); overflow: hidden; }
+.media img { width: 100%; height: 100%; object-fit: cover; }
+.noimg { width: 100%; height: 100%; display: grid; place-items: center; color: var(--color-text-subtle); font-size: var(--text-xs); letter-spacing: var(--tracking-wider); text-transform: uppercase; }
+
+.info { display: flex; flex-direction: column; gap: var(--space-4); padding-top: var(--space-3); }
+.tag { font-size: 10px; color: var(--color-text-subtle); letter-spacing: var(--tracking-wider); text-transform: uppercase; }
+.name { font-family: var(--font-serif); font-size: var(--text-2xl); font-weight: var(--weight-regular); line-height: 1.2; letter-spacing: var(--tracking-tight); }
+.price { font-size: var(--text-lg); font-weight: var(--weight-semibold); }
+.desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.8; border-top: 1px solid var(--color-border); padding-top: var(--space-4); }
+.stock { font-size: var(--text-xs); letter-spacing: var(--tracking-wider); text-transform: uppercase; }
+.in { color: var(--color-success); }
+.out { color: var(--color-danger); }
+
+.actions { display: flex; gap: var(--space-3); align-items: center; margin-top: var(--space-2); }
+.qty {
+  display: flex; align-items: center; gap: 0;
+  border: 1px solid var(--color-border);
+}
+.qty button {
+  width: 36px; height: 42px;
+  background: transparent; color: var(--color-text);
+  font-size: var(--text-lg);
+  border: none;
+  transition: background var(--transition);
+}
+.qty button:hover { background: var(--color-surface-2); }
+.qty span { min-width: 40px; text-align: center; font-size: var(--text-sm); font-weight: var(--weight-medium); }
+
+.loading { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+.skelImg { aspect-ratio: 3/4; }
+.skelCol { display: flex; flex-direction: column; gap: var(--space-4); padding-top: var(--space-3); }
+.skelLine { height: 24px; width: 70%; }
+.skelLineShort { height: 18px; width: 35%; }
