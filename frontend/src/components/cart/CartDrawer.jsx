@@ -90,5 +90,4 @@ export default function CartDrawer() {
         )}
       </aside>
     </>
-  );
-}
+  
