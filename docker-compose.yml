@@ -1,4 +1,12 @@
 services:
+  verdaccio:
+    image: verdaccio/verdaccio
+    container_name: cartly-verdaccio
+    ports:
+      - "4873:4873"
+    volumes:
+      - verdaccio_storage:/verdaccio/storage
+      - verdaccio_conf:/verdaccio/conf
 
   gateway:
     build: ./gateway
@@ -29,6 +37,7 @@ services:
       DATABASE_URL: postgresql://postgres:22767@postgres:5432/ecommerce?schema=public
     depends_on:
       - postgres
+      - verdaccio
 
   frontend:
     build: ./frontend
@@ -37,6 +46,9 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+      - verdaccio
 
 volumes:
   postgres_data:
+  verdaccio_storage:
+  verdaccio_conf:
