@@ -2,9 +2,11 @@ FROM node:20
 
 WORKDIR /app
 
-COPY package*.json .
+COPY package*.json ./
 
-RUN npm install
+RUN npm install -g npm@11
+
+RUN npm install --no-audit --no-fund --loglevel=error
 
 COPY . .
 
